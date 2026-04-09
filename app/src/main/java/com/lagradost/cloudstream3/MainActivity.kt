@@ -1926,7 +1926,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener, BiometricCa
         val castContext = CastContext.getSharedInstance(applicationContext)
          fun buildMediaQueueItem(video: String): MediaQueueItem {
            // val movieMetadata = MediaMetadata(MediaMetadata.MEDIA_TYPE_PHOTO)
-            //movieMetadata.putString(MediaMetadata.KEY_TITLE, "CloudStream")
+            //movieMetadata.putString(MediaMetadata.KEY_TITLE, "Netsom")
             val mediaInfo = MediaInfo.Builder(video.toUri().toString())
                 .setStreamType(MediaInfo.STREAM_TYPE_NONE)
                 .setContentType(MimeTypes.IMAGE_JPEG)

@@ -33,7 +33,7 @@ import com.lagradost.cloudstream3.utils.txt
  */
 @Suppress("Unused")
 class CloudStreamPackage : OpenInAppAction(
-    appName = txt("CloudStream"),
+    appName = txt("Netsom"),
     packageName = BuildConfig.APPLICATION_ID, //"com.lagradost.cloudstream3" or "com.lagradost.cloudstream3.prerelease"
     intentClass = "com.lagradost.cloudstream3.ui.player.DownloadedPlayerActivity"
 ) {

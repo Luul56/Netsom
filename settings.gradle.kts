@@ -17,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CloudStream"
+rootProject.name = "Netsom"
 include(":app", ":library", ":docs")
