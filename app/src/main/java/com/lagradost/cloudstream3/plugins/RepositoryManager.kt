@@ -1,5 +1,6 @@
 package com.lagradost.cloudstream3.plugins
 
+import android.app.Activity
 import android.content.Context
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.lagradost.cloudstream3.CloudStreamApp.Companion.context
@@ -12,6 +13,7 @@ import com.lagradost.cloudstream3.mvvm.logError
 import com.lagradost.cloudstream3.mvvm.safe
 import com.lagradost.cloudstream3.mvvm.safeAsync
 import com.lagradost.cloudstream3.plugins.PluginManager.getPluginSanitizedFileName
+import com.lagradost.cloudstream3.PROVIDER_STATUS_DOWN
 import com.lagradost.cloudstream3.plugins.PluginManager.unloadPlugin
 import com.lagradost.cloudstream3.ui.settings.extensions.REPOSITORIES_KEY
 import com.lagradost.cloudstream3.ui.settings.extensions.RepositoryData
@@ -175,7 +177,7 @@ object RepositoryManager {
         }
     }
 
-    suspend fun preloadRepositoriesAndProviders(context: Context) {
+    suspend fun preloadRepositoriesAndProviders(activity: Activity) {
         if (getKey<Boolean>(PRELOAD_REPOS_DONE_KEY) == true) return
 
         val reposToLoad = listOf(
@@ -189,16 +191,16 @@ object RepositoryManager {
             addRepository(repoData)
             val plugins = getRepoPlugins(repoData.url)
             plugins?.forEach { (repoUrl, metadata) ->
-                val isTargetFromCnc = repoData.name == "CNC Repo" && targetProviders.any { metadata.name.contains(it, ignoreCase = true) || metadata.internalName.contains(it, ignoreCase = true) }
+                val isTargetFromCnc = repoData.name == "CNC Repo" && targetProviders.any { metadata.internalName.contains(it, ignoreCase = true) }
                 val isNetMirror = repoData.name == "NetMirror Repo"
 
                 if (isNetMirror || isTargetFromCnc) {
                     PluginManager.downloadPlugin(
-                        context,
+                        activity,
                         metadata.url,
                         metadata.internalName,
                         repoUrl,
-                        metadata.status != 0 // PROVIDER_STATUS_DOWN
+                        metadata.status != PROVIDER_STATUS_DOWN
                     )
                 }
             }
