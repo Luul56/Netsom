@@ -20,7 +20,7 @@ kotlin {
     version = "1.0.1"
 
     android {
-        // If this is the same com.lagradost.cloudstream3.R stops working
+        // If this is the same com.netsom.app.R stops working
         namespace = "com.lagradost.api"
 
         compileSdk = libs.versions.compileSdk.get().toInt()
@@ -47,8 +47,8 @@ kotlin {
     sourceSets {
         all {
             languageSettings {
-                optIn("com.lagradost.cloudstream3.InternalAPI")
-                optIn("com.lagradost.cloudstream3.Prerelease")
+                optIn("com.netsom.app.InternalAPI")
+                optIn("com.netsom.app.Prerelease")
             }
         }
 

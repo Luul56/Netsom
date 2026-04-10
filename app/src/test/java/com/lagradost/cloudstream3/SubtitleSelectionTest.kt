@@ -1,7 +1,7 @@
-package com.lagradost.cloudstream3
+package com.netsom.app
 
-import com.lagradost.cloudstream3.ui.player.SubtitleData
-import com.lagradost.cloudstream3.ui.player.SubtitleOrigin
+import com.netsom.app.ui.player.SubtitleData
+import com.netsom.app.ui.player.SubtitleOrigin
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

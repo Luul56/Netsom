@@ -1,9 +1,9 @@
-package com.lagradost.cloudstream3
+package com.netsom.app
 
-// import com.lagradost.cloudstream3.APIHolder.allProviders
-// import com.lagradost.cloudstream3.mvvm.logError
-// import com.lagradost.cloudstream3.utils.Qualities
-// import com.lagradost.cloudstream3.utils.SubtitleHelper
+// import com.netsom.app.APIHolder.allProviders
+// import com.netsom.app.mvvm.logError
+// import com.netsom.app.utils.Qualities
+// import com.netsom.app.utils.SubtitleHelper
 // import kotlinx.coroutines.runBlocking
 // import org.junit.Assert
 // import org.junit.Test

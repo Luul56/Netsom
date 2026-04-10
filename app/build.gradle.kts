@@ -66,7 +66,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.lagradost.cloudstream3"
+        applicationId = "com.netsom.app"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 68
@@ -168,7 +168,7 @@ android {
         }
     }
 
-    namespace = "com.lagradost.cloudstream3"
+    namespace = "com.netsom.app"
 }
 
 dependencies {
@@ -273,8 +273,8 @@ tasks.withType<KotlinJvmCompile> {
         jvmDefault.set(JvmDefaultMode.ENABLE)
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
         optIn.addAll(
-            "com.lagradost.cloudstream3.InternalAPI",
-            "com.lagradost.cloudstream3.Prerelease",
+            "com.netsom.app.InternalAPI",
+            "com.netsom.app.Prerelease",
         )
     }
 }
