@@ -62,7 +62,8 @@ class SettingsProviders : BasePreferenceFragmentCompat() {
             return@setOnPreferenceClickListener true
         }
 
-        getPref(R.string.test_providers_key)?.setOnPreferenceClickListener {
+        getPref(R.string.test_providers_key)?.isVisible = false
+        /*getPref(R.string.test_providers_key)?.setOnPreferenceClickListener {
             // Somehow animations do not work without this.
             val options = NavOptions.Builder()
                 .setEnterAnim(R.anim.enter_anim)
@@ -74,7 +75,7 @@ class SettingsProviders : BasePreferenceFragmentCompat() {
             this@SettingsProviders.findNavController()
                 .navigate(R.id.navigation_test_providers, null, options)
             true
-        }
+        }*/
 
         getPref(R.string.prefer_media_type_key)?.setOnPreferenceClickListener {
             val names = enumValues<TvType>().sorted().map { it.name }

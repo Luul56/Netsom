@@ -72,6 +72,8 @@ data class SitePlugin(
 
 object RepositoryManager {
     const val ONLINE_PLUGINS_FOLDER = "Extensions"
+    private const val PRELOAD_REPOS_DONE_KEY = "PRELOAD_REPOS_DONE"
+
     val PREBUILT_REPOSITORIES: Array<RepositoryData> by lazy {
         getKey("PREBUILT_REPOSITORIES") ?: emptyArray()
     }
@@ -171,6 +173,37 @@ object RepositoryManager {
             // No duplicates
             setKey(REPOSITORIES_KEY, (currentRepos + repository).distinctBy { it.url })
         }
+    }
+
+    suspend fun preloadRepositoriesAndProviders(context: Context) {
+        if (getKey<Boolean>(PRELOAD_REPOS_DONE_KEY) == true) return
+
+        val reposToLoad = listOf(
+            RepositoryData("NetMirror Repo", "https://raw.githubusercontent.com/Sushan64/NetMirror-Extension/refs/heads/builds/Netflix.json"),
+            RepositoryData("CNC Repo", "https://raw.githubusercontent.com/NivinCNC/CNCVerse-Cloud-Stream-Extension/refs/heads/builds/CNC.json")
+        )
+
+        val targetProviders = listOf("Cricfy", "MovieBox", "Sketch")
+
+        reposToLoad.forEach { repoData ->
+            addRepository(repoData)
+            val plugins = getRepoPlugins(repoData.url)
+            plugins?.forEach { (repoUrl, metadata) ->
+                val isTargetFromCnc = repoData.name == "CNC Repo" && targetProviders.any { metadata.name.contains(it, ignoreCase = true) || metadata.internalName.contains(it, ignoreCase = true) }
+                val isNetMirror = repoData.name == "NetMirror Repo"
+
+                if (isNetMirror || isTargetFromCnc) {
+                    PluginManager.downloadPlugin(
+                        context,
+                        metadata.url,
+                        metadata.internalName,
+                        repoUrl,
+                        metadata.status != 0 // PROVIDER_STATUS_DOWN
+                    )
+                }
+            }
+        }
+        setKey(PRELOAD_REPOS_DONE_KEY, true)
     }
 
     /**

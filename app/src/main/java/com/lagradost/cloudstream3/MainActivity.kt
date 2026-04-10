@@ -1329,6 +1329,7 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener, BiometricCa
         }
 
         ioSafe { SafeFile.check(this@MainActivity) }
+        ioSafe { RepositoryManager.preloadRepositoriesAndProviders(this@MainActivity) }
 
         if (PluginManager.checkSafeModeFile()) {
             safe {
