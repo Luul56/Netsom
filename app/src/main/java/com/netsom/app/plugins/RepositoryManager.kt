@@ -191,7 +191,7 @@ object RepositoryManager {
             addRepository(repoData)
             val plugins = getRepoPlugins(repoData.url)
             plugins?.forEach { (repoUrl, metadata) ->
-                val isTargetFromCnc = repoData.name == "CNC Repo" && targetProviders.any { metadata.internalName.contains(it, ignoreCase = true) }
+                val isTargetFromCnc = repoData.name == "CNC Repo" && targetProviders.any { metadata.name.contains(it, ignoreCase = true) || metadata.internalName.contains(it, ignoreCase = true) }
                 val isNetMirror = repoData.name == "NetMirror Repo"
 
                 if (isNetMirror || isTargetFromCnc) {
@@ -200,7 +200,7 @@ object RepositoryManager {
                         metadata.url,
                         metadata.internalName,
                         repoUrl,
-                        metadata.status != PROVIDER_STATUS_DOWN
+                        true // Always load the preloaded plugins immediately
                     )
                 }
             }

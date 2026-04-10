@@ -1206,6 +1206,13 @@ class MainActivity : AppCompatActivity(), ColorPickerDialogListener, BiometricCa
             val lastAppAutoBackup: String = getKey("VERSION_NAME") ?: ""
             if (appVer != lastAppAutoBackup) {
                 setKey("VERSION_NAME", BuildConfig.VERSION_NAME)
+                
+                // If this is a fresh install or package rename, clear the preload flag
+                // to ensure our repositories and providers are loaded correctly.
+                if (lastAppAutoBackup.isEmpty() || lastAppAutoBackup == "4.7.0") {
+                    removeKey("PRELOAD_REPOS_DONE")
+                }
+                
                 if (lastAppAutoBackup.isEmpty()) return@safe
 
                 safe {
